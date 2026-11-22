@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "onedtap",
+  "version": "0.1.0",
+  "name": "One-Key D-Tap (Prototype)",
+  "description": "Clientseitiger, manueller One-Key-Prototyp für Crystal-PvP D-Taps. Keine Netzwerk- oder Dateizugriffe.",
+  "authors": ["OpenAI / User project"],
+  "environment": "client",
+  "entrypoints": {"client": ["de.onedtap.OneKeyDTapClient"]},
+  "depends": {"fabricloader": ">=0.18.4", "minecraft": "1.21.11", "java": ">=21", "fabric-api": "*"}
+}
