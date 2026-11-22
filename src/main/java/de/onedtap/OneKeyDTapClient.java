@@ -31,7 +31,7 @@ import java.util.Set;
  * Reagiert nur, wenn das Fadenkreuz auf einen Spieler zeigt (4.5 Blöcke).
  */
 public final class OneKeyDTapClient implements ClientModInitializer {
-    private static final int SECOND_CRYSTAL_DELAY_TICKS = 10; // ca. 500 ms; serverabhängig
+    private static final int SECOND_CRYSTAL_DELAY_TICKS = 5; // ca. 500 ms; serverabhängig
     private static final int MAX_ENTITY_WAIT_TICKS = 12;
     private static final int MAX_BLOCK_WAIT_TICKS = 8;
     private static final double MAX_REACH_SQUARED = 4.5 * 4.5;
