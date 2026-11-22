@@ -1,0 +1,49 @@
+name: OneKeyDTap Fabric Mod bauen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v6
+
+      - name: Java 21 einrichten
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Gradle einrichten
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          gradle-version: '9.2.1'
+
+      - name: Prüfen ob Mod-Quellcode vorhanden ist
+        run: |
+          test -f build.gradle || { echo 'Fehler: build.gradle fehlt'; exit 1; }
+          test -f src/main/java/de/onedtap/OneKeyDTapClient.java || { echo 'Fehler: src/main/java/de/onedtap/OneKeyDTapClient.java fehlt. Bitte den src-Ordner ins Repository hochladen.'; exit 1; }
+          test -f src/main/resources/fabric.mod.json || { echo 'Fehler: src/main/resources/fabric.mod.json fehlt'; exit 1; }
+
+      - name: Fabric-Mod kompilieren
+        run: gradle --no-daemon build
+
+      - name: Erstellte JAR-Dateien anzeigen
+        run: ls -lah build/libs/
+
+      - name: Fertige JAR hochladen
+        uses: actions/upload-artifact@v6
+        with:
+          name: OneKeyDTap-JAR
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+            !build/libs/*-dev.jar
+          if-no-files-found: error
